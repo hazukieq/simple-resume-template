@@ -1,6 +1,10 @@
 # 简易简历模板 LaTeX 教程
 
 ---
+## 简历预览
+
+
+![resume-sample](./statics/resume-sample.jpg)
 
 ## 快速入门
 
@@ -80,7 +84,7 @@ sudo ./install-tl
 sudo umount /mnt
 ```
 
-![texlive-install-hint](./statics/texlive-envs.png)
+![texlive-envs](./statics/texlive-envs.png)
 
 并将环境变量（如上图）添加到 .bashrc 或 .zshrc 中。环境变量添加操作请自行检索。
 
