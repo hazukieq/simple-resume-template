@@ -105,13 +105,13 @@ clean:
 # 帮助信息
 help:
 	@echo "使用说明:"
-	@echo "  make                  编译 PDF 文件"
-	@echo "  make all              等同于 'make'"
-	@echo "  make collect        插入汇总奖状附件信息，按新到旧顺序排列"
-	@echo "  make rcollect       插入汇总奖状附件信息，按旧到新顺序排列"
-	@echo "  make ncollect      按附件文中出现顺序排列"
-	@echo "  make restore       删除自动插入的内容(可手动在 tex 文件中删除)"
-	@echo "  make clean         清理编译生成的临时文件"
-	@echo "  make tur            生成说明书"
-	@echo "  make product     重命名 PDF 文件，更改为适合投递的名字
-	@echo "  make help          显示此帮助信息"
+	@echo "  make             编译 PDF 文件"
+	@echo "  make all         等同于 'make'"
+	@echo "  make collect     插入汇总奖状附件信息，按新到旧顺序排列"
+	@echo "  make rcollect    插入汇总奖状附件信息，按旧到新顺序排列"
+	@echo "  make ncollect    按附件文中出现顺序排列"
+	@echo "  make restore     删除自动插入的内容(可手动在 tex 文件中删除)"
+	@echo "  make clean       清理编译生成的临时文件"
+	@echo "  make tur         生成说明书"
+	@echo "  make product     重命名 PDF 文件，更改为适合投递的名字"
+	@echo "  make help        显示此帮助信息"
