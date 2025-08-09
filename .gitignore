@@ -8,4 +8,6 @@
 *.bak
 *.synctex.gz
 .*.tex.swp
+_minted/
+_minted/*
 
