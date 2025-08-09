@@ -1,0 +1,811 @@
+% !TeX document-id = {867351ff-cf8c-4583-934e-ee0bcf1335f9}
+%!TeX TXS-program:compile = txs:///xelatex/[-8bit -shell-escape]
+\documentclass[a4paper,12pt]{ctexart}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\ctexset{
+	today=small,
+	section/name={第,节},
+	section/number=\arabic{section},
+	section/format+=\raggedright,
+	subsection/aftername=\hskip 0.5em,
+	subsubsection/aftername=\hskip 0.5em,
+}
+
+%设置页面边距
+\usepackage[
+top=2.5cm,bottom=2.5cm,
+left=2cm,right=2cm,
+]{geometry}
+
+\setlength\headheight{52pt}
+%段落间距
+\linespread{1.3}
+
+
+\title{简易简历模板}
+\author{叶月绘梨依}
+
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\CTEXifname{\CTEXthesection}{}\ #1}}
+\renewcommand{\subsectionmark}[1]{} % 不为 subsection 设置标记
+
+
+\fancyhf{}
+\fancyhead[L]{\textnormal{\kaishu \rightmark}}
+\fancyhead[R]{\textnormal{\kaishu \thepage}}
+\renewcommand{\headrulewidth}{.5pt} %注意不用 \setlength
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage[
+bookmarks=true,
+colorlinks=true,
+pdfstartview=fitH
+]{hyperref}
+
+\newenvironment{pol}[1]{
+	\begin{enumerate}[topsep=0pt,labelsep=.5em,leftmargin=\the\dimexpr 0.5em+ #1\relax,itemsep=0em,parsep=0em, partopsep=0pt,label=\arabic*.]
+		
+	}{\end{enumerate}}
+
+
+\usepackage{enumitem}
+\newenvironment{pul}[1]{
+	\begin{itemize}[topsep=0pt,labelsep=.5em,leftmargin=\the\dimexpr 0.5em+ #1\relax,itemsep=0em,parsep=.5em]
+	}{\end{itemize}}
+
+\newenvironment{ul}{
+	\begin{itemize}[topsep=0pt,labelsep=.5em,leftmargin=4.5em,itemsep=-.5em]
+	}{\end{itemize}}
+
+\newenvironment{numul}{
+	\begin{enumerate}[left=0em]
+	}{\end{enumerate}}
+
+% 设置图像文件夹
+\graphicspath{{./statics/}}
+
+\newcommand{\pic}[1]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=4in]{#1}
+	\end{figure}
+}
+
+\newcommand{\fpic}[1]{
+	\begin{figure}[!h]
+		\centering
+		\fbox{\includegraphics[width=4in]{#1}}
+	\end{figure}
+}
+
+\usepackage{xeCJKfntef} %下划线自动换行
+\usepackage{algorithm}
+\usepackage{minted}
+\setminted{tabsize=4}
+\usepackage{listings}% 引入listings包，用于在文档中插入代码，并可自定义代码样式
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+
+\definecolor{codeBg}{HTML}{f6f8fa}
+\definecolor{emphColor}{HTML}{ef259d}
+% 定义自定义代码环境
+\newminted{bash}{bgcolor=codeBg,frame=leftline,framesep=0em,framerule=.1em,rulecolor=pink,fontsize=\normalsize}
+%linenos,numbers=right,numbersep=-1em
+\newminted{latex}{bgcolor=codeBg,frame=leftline,framesep=0em,framerule=.1em,rulecolor=pink,fontsize=\normalsize}
+
+\definecolor{spanbg}{HTML}{eeeeee}
+
+\newcommand{\cbox}[1]{
+	\tcbox[colback=spanbg, colframe=spanbg, rounded corners=all]{#1}
+}
+
+\newcommand{\emp}[1]{
+	\colorbox{spanbg}{#1}
+}
+
+\begin{document}
+	\maketitle
+	\setcounter{page}{0}
+	\thispagestyle{empty}
+	
+	\newpage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	\section{快速入门}
+	\subsection{项目简介}
+	模板在制作过程中，借鉴了以下 Github 项目:
+	\begin{ul}
+		\item\href{https://github.com/dyweb/awesome-resume-for-chinese}{awesome-resume, @dyweb}
+		\item\href{https://github.com/dyweb/Deedy-Resume-for-Chinese}{Deedy-Resume-for-Chinese, @dyweb}
+		\item\href{https://github.com/geekplux/cv_resume}{cv-resume, @geekplux}
+		\item\href{https://github.com/billryan/resume}{resume, @billryan}
+		\item\href{https://github.com/hijiangtao/resume}{resume, @hijiantao}
+	\end{ul}
+	
+	在这些简历的基础上，编写了符合个人风格的简历模板。模板布局主要参考自 \textbf{billryan}的排版样式，版块分布则参照了学院简历书写规范及上述项目简历内容。通过查阅\LaTeX{}文档及互联网问答论坛（如知乎、StackExchange等），经过3天的时间，编辑出了令自己较为满意的\LaTeX 模板。
+	
+
+	该模板致力于：
+	\begin{ul}
+		\item 提供基本信息控制，通过修改基本信息实现快速魔改
+		\item 关注内容，而非格式。时间应花费在内容编排
+		\item 提供 Makefile 编译，支持生成附件(奖状证件)的信息索引，方便内容迁移
+		%\item 保证简历组成清晰合理，利于管理维护
+	\end{ul}
+	
+	\subsection{项目缘起}
+	由于大四实习前制作的简历，太过简陋，加之实习那年11月签了某单位后，就将找工作的简历丢之角落尘封许久。实习结束后，因家中变故及个人对于医院的反感情绪影响，做出了“短浅”的决定——即解除相关合同。于是，自己不得不找工作，重拾了简历后才始知当年制作水准有多么一言难尽。将就着向其他行业投了几十份简历，杳无音信后，察觉简历内容和形式或是影响找工作的因素之一，自己就有了重制的打算。加之，自己在五六月份赶论文期间积累了不少排版心得。趁着赋闲在家，边学习\LaTeX 基本语法，边着手简历重制工作。
+	
+	\subsection{开始使用}
+	\textbf{前期准备}
+	
+	\qquad 由于模板基于\LaTeX 编写，所以要求计算机上安装有 TeX且配置相关环境变量。注意：若想使用附件索引生成功能，\textcolor{red}{请务必安装有支持 Posix 规范的终端模拟器}。目前相关脚本暂无支持windows的批处理脚本。
+	
+	\qquad 以下是项目完全运行的最小依赖(推荐)：`
+	\begin{pul}{6em}
+		\item TexLive2025
+		\item Make(4.3)
+		\item Bash
+	\end{pul}
+
+	\pagebreak
+	
+	\qquad \textcolor{purple}{Windows 安装建议}
+	\begin{pul}{6em}
+		\item
+		TexLive: 下载 \href{https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2025-20250308.iso}{TexLive ISO光盘}，双击文件，找到install-tl-windows.bat，按照提示安装，在cmd上输入 \mintinline{bash}{tex -v} 后输出版本信息则证明安装成功
+		\item \href{https://www.cygwin.com/setup-x86_64.exe}{Cygwin}: 一款支持 Posix规范的终端，安装时可选 make。安装教程可参考\href{https://zhuanlan.zhihu.com/p/474242350}{这篇文章}。
+	\end{pul}
+	
+	\qquad \textcolor{purple}{Ubuntu 安装建议}
+	\begin{pul}{6em}
+		\item
+		TexLive: 下载 \href{https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2025-20250308.iso}{TexLive ISO光盘}
+		
+		为方便安装，推荐在终端环境下操作。
+		
+		假设 ISO光盘路径：\textbf{/home/ubuntu/texlive2025.iso}
+		
+		将其挂载到 /mnt 目录：
+		
+		\begin{bashcode}
+    sudo mount -o loop /home/ubuntu/texlive2025.iso /mnt
+		\end{bashcode}
+		
+		然后跳转到 /mnt 目录，并运行安装脚本
+		\begin{bashcode}
+	cd /mnt
+	sudo ./install-tl
+		\end{bashcode}
+		请仔细查阅提示，输入 \textbf{I} 后回车安装。
+		\pic{texlive-install-hint.png}
+		
+		安装后输出信息包含有环境变量，请暂时记住，后面配置要用到。
+		\pic{texlive-envs.png}
+		
+		移除 ISO光盘挂载：
+		\begin{bashcode}
+	sudo umount /mnt
+		\end{bashcode}
+		
+		并将环境变量（如上图）添加到 .bashrc或.zshrc 中。环境变量添加操作请自行检索。
+		
+		至此 TexLive 安装完成。
+		
+		
+		\item
+		安装 make 库
+		\begin{bashcode}
+	sudo apt install make
+	make -v #检验是否安装成功：输出版本信息
+		\end{bashcode} 
+	
+	\end{pul}
+	 
+	\textbf{下载项目代码}
+	\begin{ul}
+		\item 可以通过点击项目右侧 \textbf{Release}，找到压缩包后点击下载
+		\item
+		通过终端 git 远程拉取代码:
+		\begin{bashcode}[xleftmargin=2em]
+  git clone xxxxx	#请打开 bash/powershell等,输入此条指令
+		\end{bashcode}
+	\end{ul}
+	
+	\textbf{编译模板}
+
+	\qquad 手动下载者解压后，需在当前文件夹内打开终端
+	\begin{bashcode}[xleftmargin=4em]
+  make #编译输出PDF文件
+	\end{bashcode}
+	
+	\textbf{查看 PDF 文件}
+	
+	\qquad 编译完成后，当前文件夹下会产生一个 PDF 文件。你可以使用阅读器进行查看——Ubuntu可使用系统内置的Evince，Windows可用Edge打开。
+		
+	\subsection{Makefile 编译选项}
+	\begin{bashcode}
+  使用说明:
+	make              编译 PDF 文件
+	make all          等同于 'make'
+	make collect      插入汇总奖状附件信息，按新到旧顺序排列
+	make rcollect     插入汇总奖状附件信息，按旧到新顺序排列
+	make ncollect     按附件文中出现顺序排列
+	make restore      删除自动插入的内容(可手动在 tex 文件中删除)
+	make clean        清理编译生成的临时文件
+	make help         显示此帮助信息
+	
+	\end{bashcode}
+	
+	\subsection{许可证 License}
+	Apache 2.0 协议开源，图片资源、字体部分详见其对应开源协议。\textbf{仅用于教育学习目的，不得作为商业用途。}
+	
+	\newpage
+	\section{页面排布说明}
+	
+	\subsection{简历构成}
+	简历模板由封面页、自荐信页、简历页、附件索引页、附件页组成。
+	其中，封面页、自荐信页、附件索引页、附件页是否添加可以在\emp{通用配置.tex}中更改。
+	
+	\textcolor{red}{注意：配置选项中 true/false 表示需要/不需要，请不要输入其他文字，否则会导致编译失败！}
+	在通用配置.tex中找到这些选项，设置是否开启:
+	\begin{latexcode}
+    \def\theCoverPageNeed{false} %是否需要封面页
+    \def\theCoverLetterNeed{true}  %是否需要自荐信
+    \def\theAttachmentIndexPageNeed{true} %是否需要附件索引页
+    \def\theAttachmentPageNeed{true}  %是否需要附加页
+	\end{latexcode}
+	
+	\textbf{定制个性化简历}，只需要打开相应文件，对内容编辑，实时编译后即可查看最新更改。如：想更改自荐信，则打开 \emp{自荐信.tex}，修改内容并保存，在\emp{TeXStudio}等编辑器或\emp{Gnome Terminal}等终端上点按编译。下面对简历组成页面进行一一说明。
+	
+	\subsection{具体设置}
+	\subsubsection{封面页}
+	模板封面偏简约风，由\emp{院校名称+应届生}标题和\emp{作者姓名}、\emp{日期}三部分构成。由于院校名称、作者姓名、日期属于配置信息，原则上需要前往\emp{通用配置.tex}进行设置，不建议在封面内修改（容易扰乱布局排版）。
+	\begin{latexcode}
+	\def\theUniversityName{大学名}  % 所在大学名称
+	\def\theCollegeName{学院名}  % 所在学院名称
+	\def\theSession{xxxx届}  % 届数
+	\def\theAuthorName{你的姓名}  % 作者姓名
+	\def\theReleaseDate{发布日期} %可选项有[具体日期|自动获取:\today]	
+	\end{latexcode}
+	
+	当然，若不满意或拥有自己设计的封面，也可以进行替换，替换文件格式不能是\emp{doc、docx}。为保持清晰度一致，推荐顺序为：PDF>JPEG>PNG。下面是设置自定义封面的步骤：
+	\begin{pul}{2em}
+	\item 准备好符合格式的封面文件（假设为\emp{hazukie-cover.pdf}，请自行替换为\emp{实际文件名}）
+	\item  将\emp{封面文件}拖入当前文件夹的\emp{imgs}文件夹中
+	\item 打开\emp{通用配置.tex}，找到选项：
+		\begin{latexcode}
+	%设置封面时，请确保这个选项是开启的！
+	\def\theCoverPageNeed{true} %是否需要封面页
+	%是否需要自定义封面
+	\def\theCoverPageCustomNeed{true}  
+	%自定义封面的文件路径
+	\def\theCoverPageCustomPath{imgs/hazukie-cover.pdf}  
+	\def\theCoverPageCustomScale{1} %自定义封面的缩放系数:0-1
+	
+		\end{latexcode}
+	\item 点按编译
+	\end{pul}
+	\subsubsection{自荐信页面}
+	自荐信页在\emp{通用配置.tex}中没有需要特殊设置的选项，但有一点要说明：自荐信的署名和署名日期，用的是\emp{通用配置.tex}的作者名和发布日期。若您需要更改，则自荐信页中将其删除，写上实际姓名和日期即可。
+	\begin{latexcode}
+	\begin{flushright}
+		自荐人\quad hazukie
+		2025年8月
+	\end{flushright}
+	\end{latexcode}
+	
+	考虑手动替换容易导致更新不及时，\underline{在配置文件新增了自定义选项。}以下是具体步骤：
+	\begin{ul}
+	\item 打开\emp{通用配置.tex}，找到以下选项：
+	\begin{latexcode}
+	\def\theCoverLetterCutomNeed{true} %是否开启自定义填写
+	\def\theCoverLetterAuthor{hazukie}  %自荐信的作者姓名
+	%自荐信的日期:自行填写|\today
+	\def\theCoverLetterDate{2025年8月8日}  
+	\end{latexcode}
+	
+	\item 点按编译
+	\end{ul}
+
+	\subsubsection{简历页}
+	这里是简历模板中重点之重点，考虑到每个人对于内容排列次序和样式的要求均有所区别，故这里仅介绍：通用组成次序、可用命令。当\emp{可用命令}不能满足定制需求时，可前往第 \ref{sec:extension} 节作进一步了解。
+	
+	对简历编写只做概略性说明，只是方便后续排版解释的展开。
+	
+	通常，简历版块有：基本信息、教育经历、实习经历、项目经历、专业技能、荣誉证书、个人评价。
+	其中，以上版块还可以根据个人实际情况，进行合并与拆分。比如：\emp{个人评价}可以合并到教育经历；若校园有任职团支书等，可增加\emp{校园经历}。每一个版块又可以细分若干，以列表罗列，着重强调者又以加粗表示。可知，$\mbox{版块}=\mbox{版块标题}+\mbox{版块内容(若干)}$。
+	
+	简历的基本信息版块，在模板中是固定的，其信息需要在\emp{通用配置.tex}中进行修改。若想要更换，您需要利用 LaTeX 中的表格等来重新设计，这里就不提供现成样式以供选择了。通用配置中选项的相关说明，请阅读最后一章节。
+	
+	\noindent\textbf{排版解释}
+	
+	版块：由标题和内容区组成。使用命令：\textbackslash spect\{标题\}。
+	\begin{latexcode}
+	\spect{教育经历} %一个版块
+	%这里是版块内容区
+	
+	\spect{实习经历} %另一个版块
+	%这里是版块内容区
+	\end{latexcode}
+	\fpic{spect.png}
+	
+	版块内容：可以是 自然段落、列表、罗列性子项。
+	\begin{ul}
+		\item 自然段落
+		
+		使用：在 \textbackslash spect\{标题\} 的下一行开始写，隔一行表示另一个自然段落开始。但在简历中默认不缩进，若要调整缩进，请使用：\textbackslash pind 表示缩进2个字符。
+		\begin{latexcode}
+	\spect{教育经历} %一个版块
+	这里是版块内容区。
+	
+	另一段落开始...
+	\pind 另一段缩进
+		\end{latexcode}
+		\fpic{pitem.png}
+	
+		\item 列表
+		
+		由一个概述性条目+描述性片段组成[可选]。
+		
+		使用命令：
+		
+		\begin{latexcode}
+		\litem{概述}{时间/其他说明}
+		\end{latexcode}
+		\fpic{litem-2.png}
+		
+		\begin{latexcode}
+ \litem{概述}{时间/其他说明}
+ \descript{
+   \indent 积极参与学生会的各项活动，领导其他干事一起参与各类活动策划
+ }
+		\end{latexcode}
+		\fpic{litem-2.png}
+
+		\item 罗列性子项
+		
+		使用命令：
+		
+		\textbackslash begin\{pitem/pblock/plist\}
+		
+		\qquad \textbackslash item 内容...
+		
+		\textbackslash end\{pitem/pblock/plist\}
+		
+		\begin{latexcode}
+	\subsection{pitem罗列性子项}
+	\begin{pitem}
+		\item 内容1...
+		\item 内容2...
+		\item 内容3...
+	\end{pitem}
+	
+	\subsection{pblock罗列性子项}
+	\begin{pblock}
+		\item 内容1...
+		\item 内容2...
+		\item 内容3...
+	\end{pblock}	
+
+	\subsection{plist罗列性子项}
+	\begin{plist}
+		\item 内容1...
+		\item 内容2...
+		\item 内容3...
+	\end{plist}
+	
+		\end{latexcode}
+		\fpic{litems.png}
+		通过图片的红线，可以清晰地看到三个罗列性子项的缩进是不同的，pitem、pblock、plist 分别是缩进2个字符、1个字符、0个字符。你可以将这三种形式进行组合以得到合理排版。
+	
+	\end{ul}
+	
+	\newpage
+	版块布局：默认为单栏，但也可以是双栏、三栏等。多栏排版可以使用 \textbackslash multicols\{栏数\} 命令得到，同时将前面命令进行嵌套组合。
+	
+	\quad 使用命令：
+	
+	\qquad\textbackslash begin\{multicols\}\{n\}
+	
+	\qquad 内容1...
+	
+	\qquad 内容2
+	
+	\qquad \textbackslash end\{multicols\}
+	\begin{latexcode}
+	\begin{multicols}{2}
+    LaTeX 已经成为国际上数学、物理、计算机等科技领域专业排版的实际标准，
+    其他领域（化学、生物、工程等）也有大量用户。
+		
+    本书内容取材广泛，涵盖了正文组织、自动化工具、数学公式、
+    图表制作、幻灯片演示、错误处理等方面。
+	\end{multicols}
+	\end{latexcode}
+	\fpic{nsides.png}
+	
+	细节调整：留白、字体、段落间距、数值单位
+	\begin{ul}
+		\item 留白：可以使用以下命令，以调整上下左右的空白宽度。
+		\begin{table}[!ht]
+			\centering
+			\zihao{5}
+			\begin{tabular}{l|l|l|l}
+				\hline
+				\textbackslash quad & \textbackslash qquad & \textbackslash ; & \textbackslash \textbackslash\\ 
+				空一格 & 空两格 & 空半格 & 换行，但没有留白\\ \hline
+				\textbackslash hspace\{n pt/cm\} & \textbackslash vspace\{n pt/cm\}&
+				\textbackslash hspace*\{n pt/cm\} & \textbackslash vspace*\{n pt/cm\}\\
+				横向留白& 垂直留白& 强制版& 强制版\\
+				\hline
+			\end{tabular}
+		\end{table}
+		\item 字体
+		
+		字体大小：中文可以使用 \textbackslash zihao\{字号\}，正数是\emp{n号字体}，负数是\emp{小n号字体}。英文也是可以用\textbackslash zihao 的，但也有特定的指令可以用 \textbackslash large,\textbackslash small等。
+		当你只想对某些字生效时，请用括号将内容括起来：\{\textbackslash zihao\{n\} 内容 \}。 
+		
+		字体选择：一般有 \textbackslash kaishu，\textbackslash heiti，\textbackslash songti，分别是 楷书、黑体、宋体。使用时可以和\textbackslash zihao 结合起来，如：\{\textbackslash kaishu\textbackslash zihao\{2\} 标题\}，就表示将二号字体的楷书应用到\emp{标题}两个汉字上。
+		
+		自定义字体：请看第\ref{sec:extension}节进一步了解。
+		
+		\item 段落
+		直接空一行，只表示新的段落开始。当想强制指定段落间距时可以用 \textbackslash setlength \textbackslash parskip\{n pt/cm\}。部分生效，则用括号\{\}括起来。
+		换行则用 \textbackslash\textbackslash，当然也可以在换行后指定上下距离: \textbackslash\textbackslash[距离 pt/cm]。
+		
+		\item 数值和单位说明：
+		\textbf{注意，数值可以正数，可以是负数的！}
+		
+		同时，单位有：pt、em、cm、mm 等。特别说明：em 是一个\emp{m}的宽度。\emp{\%} 是注释符号，\%后面的内容表示这部分不是正文，仅用来解释说明提示。百分号，请用转义符号\emp{\textbackslash \%}
+	\end{ul}
+	\subsubsection{附件索引页}
+	由于默认不开启\emp{编译时不运行脚本}选项，所以您将会看到此页面为空白。需要开启，请前往\emp{通用配置.tex}找到选项并修改为：
+	\begin{latexcode}
+	\def\theAttachIndexScriptEmbededNeed{true}
+	\end{latexcode}
+	
+	然后重新编译即可看到索引内容。
+	
+	手动编译方法：
+	\begin{ul}
+		\item 打开终端
+		\item 汇总指令: make collect/rcollect/ncollect
+		\item 编译指令: make
+		\item 查看文件
+	\end{ul}
+	\subsubsection{附件页}
+	此页面主要插入奖状、技能证书、毕业证等文件，支持 JPG、PNG、PDF等格式。
+	
+	这里，将详细介绍插入竖版文件、横版文件、整页文件（如PDF）的指令，分别是 \textbackslash vpic(竖版)、\textbackslash hpic(横版)、\textbackslash ppic(整页插入)	。
+	\textbackslash vpic、\textbackslash hpic 指令需要填写三个参数，分别为 文件路径、名称、授予日期，\underline{后两个参数为可选，若没有内容}则保持空括号\emp{\{\}}。\textbackslash ppic 则为四个参数，分别是 文件缩放系数、文件路径、名称、授予日期。指令格式为：
+	\begin{latexcode}
+		\vpic/hpic{文件路径}{名称}{日期}
+		
+		\ppic{文件缩放系数}{文件路径}{名称}{日期}	
+	\end{latexcode}
+
+	出于美观考虑，竖版文件每页排两张，横版文件则排三张。
+	
+	竖版文件排版格式（建议）：
+	\begin{latexcode}
+	\begin{figure}[!h]
+		\centering
+		\vpic{./imgs/vertical-sample.jpg}{大学英语四级证书}{2021.12}
+		\vspace*{2em}
+		\vpic{./imgs/vertical-sample.jpg}{大学英语六级证书}{2022.12}
+	\end{figure}
+	\end{latexcode}
+	\fpic{vpic-sample.png}
+
+	横版文件排版格式（建议）：
+	\begin{latexcode}
+	\begin{figure}[!h]
+		\centering
+		\hpic{./imgs/horizontal-sample.jpg}{原神大学位证书}{2025.07}
+		\vspace*{1em}
+		\hpic{./imgs/horizontal-sample2.jpg}{原神大学毕业证书}{2025.07}
+		\vspace*{1em}
+		\hpic{./imgs/horizontal-sample3.png}{原神大学计算机辅修证书}{2025.04}
+	\end{figure}
+	\end{latexcode}
+	\fpic{hpic-sample.png}
+	
+	整页文件排版格式（建议）：
+	\begin{latexcode}
+	\clearpage %新开一页
+	\ppic{}{./imgs/vertical-sample.pdf}{本科成绩单}{2025.04}
+	\end{latexcode}
+	\newpage
+	\fpic{single-page-sample.pdf}
+
+	\newpage
+	\section{自定义拓展}\label{sec:extension}
+	欢迎来到自定义拓展章节，在这里你将会懂得：
+	\begin{ul}
+	\item 如何添加额外包（Package）
+	\item 自定义命令和常量（Command、Constant）
+	\item 自定义字体
+	\item 添加书签、超链接
+	\end{ul}
+	
+	同时，在章节最后有进一步阅读的书籍清单以供参考。
+	
+	\subsection{添加额外包}
+	每个人的需求各式各样，文中提供的命令必定不能覆盖。所以，您在制作简历时，会频繁地添加第三方包（Third Package），以实现您的意图。
+	添加方式也很简单，只需要在\emp{通用配置.tex} 的末尾增加：
+	\begin{latexcode}
+	\usepackage{包名}
+	\end{latexcode}
+	然后，返回正文去使用相关命令即可。
+	
+	欲了解相关包的使用和指令参数，您可以：
+	\begin{ul}
+		\item 在终端上输入:
+		\begin{bashcode}
+		texdoc 包名
+		\end{bashcode}
+		
+		\item 网络上键入并回车 \href{https://ctan.org/}{https://ctan.org/}，然后在搜索框键入\emp{包名}，即可找到相关包的帮助页面。
+		\item 咨询 AI（ChatGPT、DeepSeek）或者在浏览器（推荐 Edge、Chrome）搜索 \emp{latex \textcolor{red}{包名}使用}，在查看相关信息时须留意是否过时。
+		\item \LaTeX 论坛，如：\href{https://tex.stackexchange.com/}{LaTeX Stack Exchange} 等。
+	\end{ul}
+	
+	\subsection{自定义命令和常量}
+	自定义命令名称使用大小写混合方式书写，可以选择传递参数或者不传递参数，\emp{参数n}在内容中用\emp{\#n}调用。
+	在\emp{通用配置.tex} 的末尾增加：
+	\begin{latexcode}
+	\newcommand{\指令名称1}{内容}
+	\newcommand{\指令名称2}[参数个数（假设为2）]{
+		... #1 %参数1
+		... #2 %参数2
+	}
+	\end{latexcode}
+	然后在正文中，
+	\begin{latexcode}
+	\指令名称1 
+	\指令名称2{参数1}{参数2}
+	\end{latexcode}
+
+	自定义常量，和自定义命令类似：
+	在\emp{通用配置.tex} 的末尾增加：
+	\begin{latexcode}
+		\def\常量名称1{内容}
+		\def\常量名称2#1#2{
+			这是参数 #1， %参数1
+			还有这个 #2。 %参数2
+		}
+	\end{latexcode}
+	然后在正文中，
+	\begin{latexcode}
+		\常量名称1 
+		\常量名称2 参数1 {参数2}
+	\end{latexcode}
+	注意，定义的名称不能和现有指令冲突，否则可能会发生不可预料的错误导致编译失败。
+	
+	\subsection{自定义字体}
+	自定义字体命令格式：
+	\begin{latexcode}
+	\newCJKfontfamily{\名称}{字体文件名称}[Path=字体文件路径]
+	\end{latexcode}
+
+	您需要将下载的字体文件移动到当前文件夹的\emp{fonts}文件夹中。
+	这里假设该字体文件名称为\emp{custom-heiti.ttf}
+
+	在\emp{通用配置.tex}末尾中添加：
+	\begin{latexcode}
+	\newCJKfontfamily{\cheiti}{custom-heiti.ttf}[Path=fonts/]
+	\end{latexcode}
+	然后返回正文中，使用 \textbackslash cheiti 即可。
+	
+	\subsection{书签、超链接}
+	书签，指在阅读 PDF 文件时，侧边栏有书签显示（相当于目录），点击也能跳转到相关内容处。值得注意的是 \textbackslash spect、\textbackslash zTitle 已经添加有书签标记，\underline{请不要重复添加!}
+	
+	在您想要添加书签的正文\underline{内容上方}，添加：
+	\begin{latexcode}
+		\tagBookmark{书签名}
+	\end{latexcode}
+	然后点按编译（\textbf{需要编译2次}），用阅读器打开 PDF 文件即可看到新的书签。
+	
+	超链接指令：\textbackslash href\{网址\}\{名称\}。在正文中使用此指令即可。
+	
+	\subsection{书籍阅读推荐清单}
+	\begin{ul}
+		\item \href{https://texdoc.org/serve/lshort-zh-cn.pdf/0}{一份（不太）简短的 \LaTeXe 介绍}
+		\item \href{https://github.com/huangxg/lnotes.git}{关于\LaTeXe 的系列笔记}
+		\item \href{https://zilutian.github.io/latex-tutorial-chinese/}{latex-tutorial-chinese}
+		\item \href{https://github.com/wklchris/Note-by-LaTeX}{简单粗暴 LATEX}
+		\item \href{https://math.ecnu.edu.cn/~jypan/Latex/index.html}{\LaTeX 科技排版}
+		\item \href{https://lrita.github.io/images/wiki/latex入门-简版-刘海洋.pdf}{\LaTeX 入门}
+	\end{ul}
+
+	\newpage
+	\section{通用配置清单}
+	% 配置文件的表格
+	\begin{table}[!h]
+		\centering
+
+		\begin{tabularx}{\textwidth}{|l|l|>{\raggedright\arraybackslash}X|}
+			\hline
+			\textbf{配置名}                    & \textbf{可填项}                                        & \textbf{作用}                      \\
+			\hline
+			\texttt{\textbackslash theCoverPageNeed}        & \texttt{true/false}                               & 是否需要封面页                   \\
+			\hline
+			\texttt{\textbackslash CoverPageBgNeed}        & \texttt{true/false}                               & 是否显示封面背景色               \\
+			\hline
+			\texttt{\textbackslash theCoverPageBgPath}     & 路径名                & 封面背景图片路径                 \\
+			\hline
+			\texttt{\textbackslash theCoverPageCustomNeed} & \texttt{true/false}                               & 是否需要自定义封面               \\
+			\hline
+			\texttt{\textbackslash theCoverPageCustomPath} & \texttt{路径名}& 自定义封面的文件路径             \\
+			\hline
+			\texttt{\textbackslash theCoverPageCustomScale} & \texttt{0-1}& 自定义封面的缩放系数             \\
+			\hline
+			\texttt{\textbackslash theBgNeed}              & \texttt{true/false}                               & 是否需要背景色                   \\
+			\hline
+			\texttt{\textbackslash theBgPath}              & \texttt{路径名}& 背景色路径                       \\
+			\hline
+			\texttt{\textbackslash theCoverLetterNeed}     & \texttt{true/false}                               & 是否需要自荐信                   \\
+			\hline
+			\texttt{\textbackslash theCoverLetterCutomNeed} & \texttt{true/false}                               & 是否开启自定义填写               \\
+			\hline
+			\texttt{\textbackslash theCoverLetterAuthor}   & \texttt{姓名}& 自荐信的作者姓名                 \\
+			\hline
+			\texttt{\textbackslash theCoverLetterDate}     & \texttt{日期}& 自荐信的日期                     \\
+			\hline
+			\texttt{\textbackslash theAttachmentIndexPageNeed} & \texttt{true/false}                            & 是否需要附件索引页               \\
+			\hline
+			\texttt{\textbackslash theAttachIndexScriptEmbededNeed} & \texttt{true/false}                      & 是否在编译时调用汇总脚本         \\
+			\hline
+			\texttt{\textbackslash theAttachCollectWay}    & \texttt{[n|r| ]collect}               & 无序/逆序/顺序                 \\
+			\hline
+			\texttt{\textbackslash theAttachmentPageNeed}  & \texttt{true/false}                               & 是否需要附加页                   \\
+			\hline
+			\texttt{\textbackslash theUniversityName}      & \texttt{大学名称}&\\
+			\hline
+			\texttt{\textbackslash theCollegeName}         & \texttt{学院名称}&\\
+			\hline
+			\texttt{\textbackslash theSession}             & \texttt{xxxx届}&\\
+			\hline
+			\texttt{\textbackslash theMajor}               & \texttt{专业名称}&\\
+			\hline
+			\texttt{\textbackslash theAuthorName}          & \texttt{作者姓名}&\\
+			\hline
+			\texttt{\textbackslash theAge}                 & \texttt{年龄}&\\
+			\hline
+			\texttt{\textbackslash theGender}              & \texttt{性别}&\\
+			\hline
+			\texttt{\textbackslash theHeight}              & \texttt{身高}&\\
+			\hline
+			\texttt{\textbackslash theHometown}            & \texttt{籍贯}&\\
+			\hline
+			\texttt{\textbackslash thePolitics}            & \texttt{政治面貌}&\\
+			\hline
+			\texttt{\textbackslash theStudyMode}           & \texttt{学制+学历}&\\
+			\hline
+			\texttt{\textbackslash thePhoneNumber}         & \texttt{联系方式}&\\
+			\hline
+			\texttt{\textbackslash theEmail}               & \texttt{电子邮件地址}&\\
+			\hline
+			\texttt{\textbackslash theReleaseDate}         & \texttt{发布日期}& \\
+			\hline
+			\texttt{\textbackslash theAvatarPath}          & \texttt{证件照路径名}&                \\
+			\hline
+		\end{tabularx}
+	\end{table}
+	
+	
+	\newpage
+	\section{已添加包清单}
+	\begin{table}[!ht]
+		\centering
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabularx}{\textwidth}{
+				|l|>{\centering\arraybackslash}X|}
+			\hline
+			\textbf{包名}& \textbf{作用}\\\hline
+			xeCJK & 支持中文排版 \\\hline
+			graphicx & 图像处理 \\ \hline
+			pdfpages & 插入 PDF 页面 \\ \hline
+			tikz & 绘图工具 \\ \hline
+			titlesec & 自定义标题格式 \\\hline 
+			enumitem & 自定义列表样式 \\ \hline
+			caption & 自定义图表标题 \\ \hline
+			etoolbox & 条件控制 \\ \hline
+			wallpaper & 壁纸背景设置 \\ \hline
+			multicol & 多栏页面排版 \\ \hline
+			newclude & 加载不分页的合并宏 \\ \hline
+			hyperref & 超链接支持 \\ \hline
+		\end{tabularx}
+	\end{table}
+
+	\newpage
+	\section{可用命令清单}
+	% \newcommand 命令的表格
+	\begin{table}[ht]
+		\centering
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+			\hline
+			\textbf{命令} & \textbf{作用说明} & \textbf{参数说明} \\
+			\hline
+			\texttt{\textbackslash sectionline} & 绘制一条水平线 & 无 \\
+			\hline
+			\texttt{\textbackslash rTitle\{\#1\}} & 定义一个居中的大标题 & \texttt{\#1} - 标题内容 \\
+			\hline
+			\texttt{\textbackslash zTitle\{\#1\}} & 定义一个居中的次级大标题 & \texttt{\#1} - 标题内容 \\
+			\hline
+			\texttt{\textbackslash litem\{\#1\}\{\#2\}} & 定义左对齐的列表项 & \texttt{\#1} - 列表前的条目，\texttt{\#2} - 对应的内容 \\
+			\hline
+			\texttt{\textbackslash fsong\{\#1\}} & 使用仿宋体显示文本 & \texttt{\#1} - 显示的文本 \\
+			\hline
+			\texttt{\textbackslash spect\{\#1\}} & 自定义区块标题命令，带有下划线 & \texttt{\#1} - 标题内容 \\
+			\hline
+			\texttt{\textbackslash pblock} & 定义自定义的 itemize 环境 & 无 \\
+			\hline
+			\texttt{\textbackslash pitem} & 定义另一种格式的 itemize 环境 & 无 \\
+			\hline
+			\texttt{\textbackslash plist} & 定义简单的 itemize 环境 & 无 \\
+			\hline
+			\texttt{\textbackslash descript\{\#1\}} & 使用特定字号描述文本 & \texttt{\#1} - 要描述的内容 \\
+			\hline
+			\texttt{\textbackslash pind} & 增加缩进 & 无 \\
+			\hline
+			\texttt{\textbackslash vpic\{\#1\}\{\#2\}\{\#3\}} & 自定义插图命令，包含图片、说明等 & \texttt{\#1} - 图片路径，\texttt{\#2} - 图片标题，\texttt{\#3} - 可选日期 \\
+			\hline
+			\texttt{\textbackslash hpic\{\#1\}\{\#2\}\{\#3\}} & 与 \texttt{\textbackslash vpic} 类似，但设置为横向插图 & \texttt{\#1} - 图片路径，\texttt{\#2} - 图片标题，\texttt{\#3} - 可选日期 \\
+			\hline
+			\texttt{\textbackslash ppic\{\#1\}\{\#2\}\{\#3\}\{\#4\}} & 插入一页完整的 PDF & \texttt{\#1} - 插入选项，\texttt{\#2} - 文件路径，\texttt{\#3} - 文件标识，\texttt{\#4} - 可选日期 \\
+			\hline
+			\texttt{\textbackslash addCoverBg} & 添加封面背景 & 无 \\
+			\hline
+			\texttt{\textbackslash addBg} & 添加文档背景 & 无 \\
+			\hline
+			\texttt{\textbackslash tagBookmark\{\#1\}} & 手动添加书签 & \texttt{\#1} - 书签名称 \\
+			\hline
+		\end{tabularx}
+	\end{table}
+
+	\newpage
+	\section{可用自定义字体清单}	
+	% 自定义字体的表格
+	% 自定义字体的表格
+	\begin{table}[ht]
+		\centering
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabularx}{\textwidth}{|c|>{\raggedright\arraybackslash}X|}
+			\hline
+			\textbf{字体名称}       & \textbf{命令}                        \\
+			\hline
+			Times New Roman        & \textbackslash timesnr \\
+			\hline
+			黑体                  & \textbackslash zhei\\
+			\hline
+			思源黑体              & \textbackslash hansc \\
+			\hline
+			仿宋体                & \textbackslash thefsong\\
+			\hline
+		\end{tabularx}
+	\end{table}	
+	
+	\newpage
+	\section{致谢}
+	在此，我衷心感谢所有为《简易简历模板LaTeX教程》提供帮助与支持的人。首先，我要感谢我的家人和朋友们，感谢他们在我学习和研究期间给予的鼓励和支持，使我能够坚持不懈并最终完成此项目。
+	
+	我还想特别感谢那些分享了他们的知识和经验的前辈和网友们，他们的宝贵建议和专业意见提升了教程的质量，帮助我更好地理解LaTeX的使用。感谢网络社区的成员们，特别是在Stack Exchange和GitHub等平台上无私分享经验的开发者们，你们的热情和共享精神让我在面对困难时充满信心。
+	
+	最后，对所有曾经使用和反馈此教程的读者表示诚挚的感谢，正是你们的参与和建议才让这个教程更加完善。我希望本教程能为更多人提供帮助，让他们在制作简历的过程中更加得心应手。
+	
+	\begin{flushright}
+		叶月绘梨依\quad 落笔
+		
+		2025年8月9日
+	\end{flushright} 
+\end{document}

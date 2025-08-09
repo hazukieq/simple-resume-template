@@ -1,0 +1,245 @@
+% !TeX document-id = {8acf513d-1fb5-4638-86f9-83154cba60f0}
+%!TeX TXS-program:compile = txs:///xelatex/[-shell-escape]
+\documentclass[a4paper,12pt]{ctexart}
+
+% ------------------------------
+% 宏包引入部分
+% ------------------------------
+\usepackage{xeCJK} % 支持中文
+\usepackage{graphicx} % 图像处理
+\usepackage{pdfpages} % 插入 PDF 页面
+\usepackage{tikz} % 绘图
+\usepackage{titlesec} % 自定义标题格式
+\usepackage{enumitem} % 自定义列表
+\usepackage{caption} % 自定义图表标题
+\usepackage{etoolbox} % 条件控制
+\usepackage{wallpaper} % 壁纸背景设置
+\usepackage{multicol} % 多栏页面
+%加载不分页的合并宏,\include* 不分页
+\usepackage{newclude}
+\usepackage[colorlinks=true, pdfstartview=FitH, urlcolor=black, linkcolor=black, filecolor=black, anchorcolor=black, citecolor=black]{hyperref} % 超链接支持
+
+% ------------------------------
+% 字体设置部分
+% ------------------------------
+\setCJKmainfont{SourceHanSerifSC-Regular.otf}[Path=fonts/] % 设置中文主字体
+
+% 设置英文为 Times New Roman
+\newfontfamily{\timesnr}{Timesnr.ttf}[BoldFont=Timesnrbd.ttf,ItalicFont=Timesnri.ttf,BoldItalicFont=Timesnribd.ttf,Path=fonts/]
+
+% 定义中文字体
+\newCJKfontfamily{\zhei}{SimHei.ttf}[Path=fonts/] % 黑体
+\newCJKfontfamily{\hansc}{SourceHanSansSC-Regular.otf}[Path=fonts/] % 思源黑体
+\newCJKfontfamily{\thefsong}{SimFang.ttf}[Path=fonts/] % 仿宋体
+
+% ------------------------------
+% 页面布局设置部分
+% ------------------------------
+\usepackage[
+top=1cm, 
+bottom=1cm, 
+left=1cm, 
+right=1cm, 
+bindingoffset=0cm, 
+footskip=0cm, 
+headheight=0cm
+]{geometry} % 设置页边距
+
+\linespread{1.2} % 行距 1.2倍
+\setlength{\parindent}{0pt} % 取消段落缩进
+\pagenumbering{gobble} % 去掉页码
+
+% ------------------------------
+% 自定义命令与环境部分
+% ------------------------------
+% 自定义命令来绘制直线
+\newcommand{\sectionline}{\rule{\linewidth}{0.1mm}} % 调整线的厚度
+
+% 设置 section 和 subsection 的格式，去除居中
+\titleformat{\section}{\zihao{-3}\hansc}{}{0em}{} % section
+\titleformat{\subsection}{\zihao{4}\hansc}{}{0em}{} % subsection
+\titleformat{\subsubsection}{\songti\normalsize}{\thesubsubsection}{.5em}{} % subsubsection
+
+% 调整标题前后距离
+\titlespacing{\section}{0pt}{3pt}{1pt}
+\titlespacing{\subsection}{0pt}{0pt}{6pt}
+\titlespacing{\subsubsection}{0pt}{0pt}{6pt}
+
+% 调整段落前后距离
+\setlength\parskip{0em}
+
+
+%自定义配置文件
+\input{通用配置.tex}
+
+\newcommand{\checkCoverLetterName}{\ifboolexpr{bool{\theCoverLetterCutomNeed}}{\theCoverLetterAuthor}{\theAuthorName}}
+
+% 自定义标题命令
+\newcommand{\rTitle}[1]{
+	\begin{center}
+		\zihao{1}\zhei #1
+	\end{center}
+}
+
+\newcommand{\zTitle}[1]{
+	\begin{center}
+		\tagBookmark{#1}
+		{\zihao{2}\zhei #1}
+	\end{center}
+}
+
+\newcommand{\litem}[2]{
+	\makebox[\linewidth][l]{{#1\hfill#2}}
+}
+
+\newcommand{\fsong}[1]{
+	{\thefsong #1}
+}
+
+% 自定义区块标题命令
+\newcommand{\spect}[1]{
+	\section{#1}
+	\vspace{-1.2em}
+	\sectionline
+}
+
+% 自定义 itemize 环境
+\newenvironment{pblock}{%
+	\begin{itemize}[left=.5em, itemsep=-.5em, topsep=0pt, labelsep=0em, label=]
+		\zihao{5}
+	}{\end{itemize}}
+
+\newenvironment{pitem}{
+	\begin{itemize}[left=1em, itemsep=-.2em, topsep=-5pt, labelsep=0.1em, label=]
+	}{\end{itemize}}
+
+\newenvironment{plist}{
+	\begin{itemize}[left=0em, itemsep=0em, topsep=2pt, labelsep=0em, label=]
+	}{\end{itemize}}
+
+\newcommand{\descript}[1]{
+	{\zihao{5}#1}
+}
+
+% 定义缩进命令
+\renewcommand{\indent}{\hspace*{1em}}
+\newcommand{\pind}{\hspace*{2em}}
+
+% 自定义插图命令
+\newcommand{\vpic}[3]{%
+	\ifthenelse{\equal{#3}{}}%
+	{
+		\includegraphics[height=4.5in]{#1}
+		\caption*{#2}
+	} % 如果未提供第一个可选参数
+	{
+		\includegraphics[height=4.5in]{#1}
+		\ifboolexpr{bool{\isAttachDate}}{%
+			\caption*{#2(#3)}
+		}{
+			\caption*{#2}
+		}
+	} % 如果提供了第一个可选参数
+}
+
+\newcommand{\hpic}[3]{%
+	\ifthenelse{\equal{#3}{}}%
+	{
+		\includegraphics[width=4in]{#1}
+		\caption*{#2}
+	} % 如果未提供第一个可选参数
+	{
+		\includegraphics[width=4in]{#1}
+		\ifboolexpr{bool{\isAttachDate}}{%
+			\caption*{#2(#3)}
+		}{
+			\caption*{#2}
+		}
+	} % 如果提供了第一个可选参数
+}
+
+% 直接完整添加一页 PDF
+% 接受一个任意参数, 一个路径参数, 一个文件标识[无作用], 一个日期参数[可选，无作用]
+\newcommand{\ppic}[4]{
+	\includepdf[#1]{#2}
+}
+
+
+% 添加背景和封面背景
+\newcommand{\addCoverBg}{
+	\ifboolexpr{bool{\CoverPageBgNeed}}{
+		\ThisCenterWallPaper{1}{\theCoverPageBgPath}
+	}{}
+}
+
+\newcommand{\addBg}{
+	\ifboolexpr{bool{\theBgNeed}}{
+		\ThisCenterWallPaper{1}{\theBgPath}
+	}{}
+}
+
+% ------------------------------
+% 超链接设置部分
+% ------------------------------
+\hypersetup{ %
+	pdftitle= {\theAuthorName 简历}, % PDF标题
+	pdfauthor= {\theAuthorName}, % PDF作者
+	pdfkeywords = {},  % 关键词
+	pdfsubject = {},    % 主题
+	pdfcreator  = {up\LaTeX\ with package  hyperref},    % 工具
+	pdfproducer = {dvipdf},   % 生成软件
+	bookmarks=true,
+}
+
+% ------------------------------
+% 手动添加书签命令
+% ------------------------------
+\newcommand{\tagBookmark}[1]{
+	\pdfbookmark[1]{#1}{#1_}
+}
+
+
+\begin{document}
+	\pagestyle{empty}
+	\ifboolexpr{bool{\theCoverPageNeed}}{%
+		\ifboolexpr{bool{\theCoverPageCustomNeed}}{%
+			\includepdf{\theCoverPageCustomPath}
+		}{
+			\include*{封面页}
+		}
+	}{}
+	
+	\clearpage
+	\addBg
+	\ifboolexpr{bool{\theCoverLetterNeed}}{%
+		\include*{自荐信页}
+	}{}
+	
+	\clearpage
+	\include*{简历页}
+
+
+%====附件页========================
+	%isSummary
+	\ifboolexpr{bool{\theAttachmentIndexPageNeed}}{%
+		\clearpage
+		\spect{附件信息索引}
+		\\[-1em]
+		%由脚本自动生成,请不要改动这里%
+		%--\attachsCollected--%
+		\ifboolexpr{bool{\theAttachIndexScriptEmbededNeed}}{
+			% 调用外部脚本，例如一个 shell 脚本
+			\immediate\write18{make \theAttachCollectWay}
+			
+		}{}
+		
+		\include*{附件索引页}
+		%由脚本自动生成,请不要改动这里%
+	}{}
+	
+	\ifboolexpr{bool{\theAttachmentPageNeed}}{%
+		\clearpage
+		\include*{附件页}	
+	}{}
+	
+\end{document}

@@ -1,0 +1,41 @@
+\zTitle{自荐信}
+{
+	\zihao{4} %使用四号字体
+	\songti %使用宋体
+	\setlength\parskip{8pt} %段落间距
+	
+	\textbf{尊敬的老师：}
+	\pind 您好！
+	
+	%===自荐信内容====%
+	\pind 我叫\checkCoverLetterName，是\textbf{\theUniversityName \theCollegeName}的 \theSession 应届毕业生。
+	
+	\pind 在原神大学学习期间，我始终保持积极的学习态度，努力提升自己的专业技能，成绩稳居班级前20\%。我顺利通过了\textbf{大学英语六级考试}，并在\textbf{区级数字游戏设计大赛}中荣获\textbf{优秀奖}。作为原神大学游戏设计社团的会长，我组织了多次沙龙和比赛，带领团队获得了院级“创意游戏开发赛”二等奖和校级“最佳团队合作奖”。
+	
+	\pind 在专业学习的过程中，我深知多元能力的重要性，因此积极自学3D建模及游戏编程，并获得了计算机应用基础证书。我参与了多个科研项目，包括\textbf{“原神角色开发研究”}项目，负责角色设计和数据分析，提升了我在团队中的综合能力。
+	
+	\pind 在深圳市一家著名游戏开发公司实习期间，我将课堂上学到的理论知识与实际开发相结合，参与了两个主要的游戏项目。从角色原型设计到玩家交互体验优化，我的努力得到了导师和团队成员的认可，积累了宝贵的实践经验。
+	
+	\pind 我渴望在一个能够发挥创造力和专业技能的舞台上持续发展，希望能为团队和玩家带来卓越的游戏体验。对贵单位的项目充满向往，冒昧自荐。如果能有幸成为您团队的一员，我将以满腔的热情投入工作，迎接新的挑战，为公司的发展贡献自己的力量。
+	
+	%===自荐信内容====%
+	
+	\pind 静候您的佳音！
+	
+	\pind 此致
+	
+	敬礼
+	
+	\vspace*{12pt}
+	\begin{flushright}
+		\ifboolexpr{bool{\theCoverLetterCutomNeed}}{
+			自荐人 \theCoverLetterAuthor
+			
+			\theCoverLetterDate
+		}{
+			自荐人\quad \theAuthorName
+		
+			\theReleaseDate
+		}
+	\end{flushright}
+}
