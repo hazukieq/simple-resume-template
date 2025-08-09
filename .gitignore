@@ -1,0 +1,11 @@
+*.pdf
+*.csv 
+*.aux 
+*.log 
+*.txss2 
+*.out
+*.csv
+*.bak
+*.synctex.gz
+.*.tex.swp
+
