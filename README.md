@@ -68,7 +68,7 @@ cd /mnt
 sudo ./install-tl
 ```
 
-![texlive-install-hint](/home/lyaz/Documents/resume_template/statics/texlive-install-hint.png)
+![texlive-install-hint](./statics/texlive-install-hint.png)
 
 请仔细查阅提示，输入 **I** 后回车安装。
 
@@ -80,7 +80,7 @@ sudo ./install-tl
 sudo umount /mnt
 ```
 
-![texlive-install-hint](/home/lyaz/Documents/resume_template/statics/texlive-envs.png)
+![texlive-install-hint](./statics/texlive-envs.png)
 
 并将环境变量（如上图）添加到 .bashrc 或 .zshrc 中。环境变量添加操作请自行检索。
 
