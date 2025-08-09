@@ -105,7 +105,7 @@ make -v # 检验是否安装成功：输出版本信息
 - 通过终端 git 远程拉取代码：
 
 ```bash
-git clone xxxxx # 请打开 bash/powershell 等, 输入此条指令
+git clone https://github.com/hazukieq/simple-resume-template.git # 请打开 bash/powershell 等, 输入此条指令
 ```
 
 ---
