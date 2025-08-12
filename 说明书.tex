@@ -216,7 +216,7 @@ pdfstartview=fitH
 		\item
 		通过终端 git 远程拉取代码:
 		\begin{bashcode}[xleftmargin=2em]
-  git clone xxxxx	#请打开 bash/powershell等,输入此条指令
+  git clone https://github.com/hazukieq/simple-resume-template.git	#请打开 bash/powershell等,输入此条指令
 		\end{bashcode}
 	\end{ul}
 	
@@ -634,7 +634,7 @@ pdfstartview=fitH
 
 		\begin{tabularx}{\textwidth}{|l|l|>{\raggedright\arraybackslash}X|}
 			\hline
-			\textbf{配置名}                    & \textbf{可填项}                                        & \textbf{作用}                      \\
+			\textbf{配置名}                    & \textbf{可填项}                                        & \textbf{说明}                      \\
 			\hline
 			\texttt{\textbackslash theCoverPageNeed}        & \texttt{true/false}                               & 是否需要封面页                   \\
 			\hline
@@ -710,7 +710,7 @@ pdfstartview=fitH
 		\begin{tabularx}{\textwidth}{
 				|l|>{\centering\arraybackslash}X|}
 			\hline
-			\textbf{包名}& \textbf{作用}\\\hline
+			\textbf{包名}& \textbf{用途}\\\hline
 			xeCJK & 支持中文排版 \\\hline
 			graphicx & 图像处理 \\ \hline
 			pdfpages & 插入 PDF 页面 \\ \hline
@@ -734,7 +734,7 @@ pdfstartview=fitH
 		\renewcommand{\arraystretch}{1.2}
 		\begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
 			\hline
-			\textbf{命令} & \textbf{作用说明} & \textbf{参数说明} \\
+			\textbf{命令} & \textbf{用途} & \textbf{参数说明} \\
 			\hline
 			\texttt{\textbackslash sectionline} & 绘制一条水平线 & 无 \\
 			\hline
@@ -746,21 +746,21 @@ pdfstartview=fitH
 			\hline
 			\texttt{\textbackslash fsong\{\#1\}} & 使用仿宋体显示文本 & \texttt{\#1} - 显示的文本 \\
 			\hline
-			\texttt{\textbackslash spect\{\#1\}} & 自定义区块标题命令，带有下划线 & \texttt{\#1} - 标题内容 \\
+			\texttt{\textbackslash spect\{\#1\}} & 版块标题命令，带有下划线 & \texttt{\#1} - 标题内容 \\
 			\hline
-			\texttt{\textbackslash pblock} & 定义自定义的 itemize 环境 & 无 \\
+			\texttt{\textbackslash pitem} & 左空2格的列表 & 无 \\
 			\hline
-			\texttt{\textbackslash pitem} & 定义另一种格式的 itemize 环境 & 无 \\
+			\texttt{\textbackslash pblock} & 左空1格的列表 & 无 \\
 			\hline
-			\texttt{\textbackslash plist} & 定义简单的 itemize 环境 & 无 \\
+			\texttt{\textbackslash plist} & 左无空格的列表 & 无 \\
 			\hline
 			\texttt{\textbackslash descript\{\#1\}} & 使用特定字号描述文本 & \texttt{\#1} - 要描述的内容 \\
 			\hline
-			\texttt{\textbackslash pind} & 增加缩进 & 无 \\
+			\texttt{\textbackslash pind} & 左缩进2格 & 无 \\
 			\hline
-			\texttt{\textbackslash vpic\{\#1\}\{\#2\}\{\#3\}} & 自定义插图命令，包含图片、说明等 & \texttt{\#1} - 图片路径，\texttt{\#2} - 图片标题，\texttt{\#3} - 可选日期 \\
+			\texttt{\textbackslash vpic\{\#1\}\{\#2\}\{\#3\}} & 设置竖向插图命令 & \texttt{\#1} - 图片路径，\texttt{\#2} - 图片标题，\texttt{\#3} - 可选日期 \\
 			\hline
-			\texttt{\textbackslash hpic\{\#1\}\{\#2\}\{\#3\}} & 与 \texttt{\textbackslash vpic} 类似，但设置为横向插图 & \texttt{\#1} - 图片路径，\texttt{\#2} - 图片标题，\texttt{\#3} - 可选日期 \\
+			\texttt{\textbackslash hpic\{\#1\}\{\#2\}\{\#3\}} & 设置为横向插图 & \texttt{\#1} - 图片路径，\texttt{\#2} - 图片标题，\texttt{\#3} - 可选日期 \\
 			\hline
 			\texttt{\textbackslash ppic\{\#1\}\{\#2\}\{\#3\}\{\#4\}} & 插入一页完整的 PDF & \texttt{\#1} - 插入选项，\texttt{\#2} - 文件路径，\texttt{\#3} - 文件标识，\texttt{\#4} - 可选日期 \\
 			\hline
