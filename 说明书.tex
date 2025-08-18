@@ -78,6 +78,15 @@ pdfstartview=fitH
 	\end{figure}
 }
 
+\newcommand{\ppic}[2]{
+	\begin{figure}[!h]
+		\centering
+		\fbox{
+			\includegraphics[#1]{#2}
+		}
+	\end{figure}
+}
+
 \newcommand{\fpic}[1]{
 	\begin{figure}[!h]
 		\centering
@@ -247,6 +256,10 @@ pdfstartview=fitH
 	
 	\subsection{许可证 License}
 	Apache 2.0 协议开源，图片资源、字体部分详见其对应开源协议。\textbf{仅用于教育学习目的，不得作为商业用途。}
+	
+	\newpage
+	\section{简历模板展示}
+	\ppic{width=6in}{resume-sample.jpg}
 	
 	\newpage
 	\section{页面排布说明}
