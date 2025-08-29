@@ -16,8 +16,8 @@ function mainDo(){
     echo "">"$TMPFILE"
     echo "">"$ARCHIVEFILE"
 
-    cat "$TEXFILE"|grep "\.*pic{.*}{.*}{.*}"|sed "s/\s*//g"|sed -r "s/\\\.*pic\{.*\}\{(.*)\}\{(.*)\}/\2 \\\item\\\litem\{\1\}\{\2\}/g">>"$TMPFILE"
-    cat "$TEXFILE"|grep "\.*pic{.*}{.*}{.*}"|sed "s/\s*//g"|sed -r "s/\\\.*pic\{.*\}\{(.*)\}\{(.*)\}/\1, \2/g">>"$ARCHIVEFILE"
+    cat "$TEXFILE"|grep -v "%.*"|grep "\.*pic{.*}{.*}{.*}"|sed "s/\s*//g"|sed -r "s/\\\.*pic\{.*\}\{(.*)\}\{(.*)\}/\2 \\\item\\\litem\{\1\}\{\2\}/g">>"$TMPFILE"
+    cat "$TEXFILE"|grep -v "%.*"|grep "\.*pic{.*}{.*}{.*}"|sed "s/\s*//g"|sed -r "s/\\\.*pic\{.*\}\{(.*)\}\{(.*)\}/\1, \2/g">>"$ARCHIVEFILE"
     
     sed -i '/^[[:space:]]*$/d' "$TMPFILE"
     sed -i '/^[[:space:]]*$/d' "$ARCHIVEFILE"
